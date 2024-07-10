@@ -2,25 +2,25 @@ package handlers
 
 import (
 	"encoding/json"
-	"learn/models"
 	"learn/services/interfaces"
 	"net/http"
 )
 
-type HealthcheckHandler struct {
+type UserHandler struct {
+	UserService interfaces.IUserService
 }
 
 // NewEchoHandler builds a new EchoHandler.
-func NewHealthcheckHandler(userService interfaces.IUserService) *HealthcheckHandler {
-	return &HealthcheckHandler{}
+func NewUserHandler(userService interfaces.IUserService) *UserHandler {
+	return &UserHandler{
+		UserService: userService,
+	}
 }
 
 // ServeHTTP handles an HTTP request to the /echo endpoint.
-func (s *HealthcheckHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	response := models.HealthcheckResponse{
-		Status: "Healthy",
-	}
-	jsonData, err := json.Marshal(response)
+func (s *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	user := s.UserService.GetUser(0)
+	jsonData, err := json.Marshal(user)
 	if err != nil {
 		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
 		return

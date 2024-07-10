@@ -17,12 +17,12 @@ func BuildContainer() *fx.App {
 		fx.Provide(
 			NewHTTPServer,
 			implementations.NewUserService,
-			// handlers.NewUserHandler,
+			handlers.NewUserHandler,
 			handlers.NewHealthcheckHandler,
 		),
 		fx.Provide(
-			func(healthCheckHandler *handlers.HealthcheckHandler) *http.ServeMux {
-				return routes.SetupRoutes(healthCheckHandler)
+			func(healthCheckHandler *handlers.HealthcheckHandler, userHandler *handlers.UserHandler) *http.ServeMux {
+				return routes.SetupRoutes(healthCheckHandler, userHandler)
 			},
 		),
 		fx.Invoke(func(*http.Server, interfaces.IUserService) {}),

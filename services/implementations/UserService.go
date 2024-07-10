@@ -1,6 +1,9 @@
 package implementations
 
-import "learn/services/interfaces"
+import (
+	"learn/models"
+	"learn/services/interfaces"
+)
 
 type UserService struct {
 }
@@ -9,6 +12,9 @@ func NewUserService() interfaces.IUserService {
 	return &UserService{}
 }
 
-func (s *UserService) GetUsernameByID(int) string {
-	return "Nimit Didwania"
+func (s *UserService) GetUser(id int) models.User {
+	return models.User{}
+}
+func (s *UserService) GetUsers() {
+
 }

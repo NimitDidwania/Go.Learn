@@ -1,5 +1,8 @@
 package interfaces
 
+import "learn/models"
+
 type IUserService interface {
-	GetUsernameByID(int) string
+	GetUser(int) models.User
+	GetUsers()
 }

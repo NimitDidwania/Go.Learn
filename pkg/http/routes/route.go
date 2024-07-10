@@ -6,9 +6,12 @@ import (
 )
 
 // SetupRoutes sets up the application routes
-func SetupRoutes(healthCheckHandler *handlers.HealthcheckHandler) *http.ServeMux {
+func SetupRoutes(healthCheckHandler *handlers.HealthcheckHandler, userHandler *handlers.UserHandler) *http.ServeMux {
 	mux := http.NewServeMux()
-	mux.Handle("/healthcheck", healthCheckHandler)
+
+	mux.Handle("/api/healthcheck", healthCheckHandler)
+	mux.Handle("/api/user", userHandler)
+
 	// Add more routes here as needed
 	return mux
 }
